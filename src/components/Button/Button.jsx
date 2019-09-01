@@ -3,22 +3,23 @@ import C from "classnames";
 import T from "prop-types";
 
 const typeMapper = {
-  primary: "primary",
-  secondary: "secondary",
-  dark: "dark",
-  light: "light"
+  primary: "btn-primary",
+  secondary: "btn-secondary",
+  dark: "btn-dark",
+  light: "btn-light"
 };
 
 const sizeMapper = {
-  small: "sm",
-  large: "lg"
+  small: "btn-sm",
+  large: "btn-lg"
 };
 
 const Button = ({ text, size, type, onClick }) => {
   return (
     <button
       className={C(
-        type ? typeMapper[type] : "primary",
+        "mb-btn",
+        type ? typeMapper[type] : "btn-primary",
         size && sizeMapper[size]
       )}
       onClick={onClick}
@@ -39,9 +40,7 @@ Button.defaultProps = {
   text: null,
   size: null,
   type: "primary",
-  onClick: function() {
-    console.log("no onClick function is assigned.");
-  }
+  onClick: console.log("no onClick function is assigned.")
 };
 
 export default Button;

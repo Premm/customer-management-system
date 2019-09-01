@@ -3,7 +3,11 @@ import C from "classnames";
 import T from "prop-types";
 
 const Form = ({ onSubmit, children }) => {
-  return <form onSubmit={onSubmit}>{children}</form>;
+  return (
+    <form className={C("mb-form")} onSubmit={onSubmit}>
+      {children}
+    </form>
+  );
 };
 
 Form.propTypes = {
@@ -12,7 +16,7 @@ Form.propTypes = {
 };
 
 Form.defaultProps = {
-  onSubmit: null,
+  onSubmit: console.log("no onSubmit function is assigned."),
   children: null
 };
 

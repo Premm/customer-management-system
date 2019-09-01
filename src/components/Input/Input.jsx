@@ -3,24 +3,26 @@ import C from "classnames";
 import T from "prop-types";
 
 const typeMapper = {
-  primary: "primary",
-  secondary: "secondary",
-  dark: "dark",
-  light: "light"
+  primary: "input-primary",
+  secondary: "input-secondary",
+  dark: "input-dark",
+  light: "input-light"
 };
 
 const sizeMapper = {
-  small: "sm",
-  large: "lg"
+  small: "input-sm",
+  large: "input-lg"
 };
 
-const Input = ({ placeholder, size, type, onChange }) => {
+const Input = ({ placeholder, size, type, onChange, inputType }) => {
   return (
     <input
       className={C(
-        type ? typeMapper[type] : "primary",
+        "mb-input",
+        type ? typeMapper[type] : "input-primary",
         size && sizeMapper[size]
       )}
+      type={inputType ? inputType : "text"}
       onChange={onChange}
       placeholder={placeholder}
     />
@@ -31,6 +33,7 @@ Input.propTypes = {
   placeholder: T.string,
   size: T.string,
   type: T.string,
+  inputType: T.string,
   onChange: T.func
 };
 
@@ -38,6 +41,7 @@ Input.defaultProps = {
   placeholder: null,
   size: null,
   type: "primary",
+  inputType: "text",
   onChange: null
 };
 
