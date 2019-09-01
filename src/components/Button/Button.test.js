@@ -15,11 +15,7 @@ describe("Button", () => {
     const wrapper = shallow(<Button type="primary" />);
     expect(wrapper.find("button.primary")).toBeTruthy();
   });
-  it("renders with primary class", () => {
-    const wrapper = shallow(<Button type="primary" />);
-    expect(wrapper.find("button.primary")).toBeTruthy();
-  });
-  it("handles onClick", () => {
+  it("handles onClick event", () => {
     const spyOnClick = jest.fn();
     const wrapper = shallow(<Button onClick={spyOnClick} />);
     wrapper.simulate("click");
