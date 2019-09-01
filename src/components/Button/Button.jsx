@@ -1,6 +1,7 @@
 import React from "react";
 import C from "classnames";
 import T from "prop-types";
+import { Link } from "react-router-dom";
 
 const typeMapper = {
   primary: "btn-primary",
@@ -14,8 +15,20 @@ const sizeMapper = {
   large: "btn-lg"
 };
 
-const Button = ({ text, size, type, onClick }) => {
-  return (
+const Button = ({ children, size, type, onClick, to }) => {
+  return to ? (
+    <Link
+      className={C(
+        "mb-btn",
+        type ? typeMapper[type] : "btn-primary",
+        size && sizeMapper[size]
+      )}
+      to={to}
+    >
+      {" "}
+      {children}{" "}
+    </Link>
+  ) : (
     <button
       className={C(
         "mb-btn",
@@ -24,20 +37,20 @@ const Button = ({ text, size, type, onClick }) => {
       )}
       onClick={onClick}
     >
-      {text}
+      {children}
     </button>
   );
 };
 
 Button.propTypes = {
-  text: T.string,
+  children: T.string,
   size: T.string,
   type: T.string,
   onClick: T.func
 };
 
 Button.defaultProps = {
-  text: null,
+  children: null,
   size: null,
   type: "primary",
   onClick: console.log("no onClick function is assigned.")
