@@ -1,0 +1,2 @@
+export const CUSTOMER_SET = "CUSTOMER_SET";
+export const CUSTOMER_REMOVE = "CUSTOMER_REMOVE";
