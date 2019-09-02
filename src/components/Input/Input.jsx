@@ -63,7 +63,7 @@ Input.defaultProps = {
   size: null,
   type: "primary",
   inputType: "text",
-  onChange: null
+  onChange: function() {}
 };
 
 export default Input;
