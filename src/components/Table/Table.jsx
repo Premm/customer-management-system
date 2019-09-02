@@ -1,9 +1,27 @@
 import React from "react";
 import C from "classnames";
 import T from "prop-types";
+import styled from "styled-components";
+
+const StyledTable = styled.table`
+  &.mb-table {
+    display: block;
+    width: 100%;
+    thead {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+    tbody {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+  }
+`;
 
 const Table = ({ children }) => {
-  return <table className={C("mb-table")}>{children}</table>;
+  return <StyledTable className={C("mb-table")}>{children}</StyledTable>;
 };
 
 Table.propTypes = {

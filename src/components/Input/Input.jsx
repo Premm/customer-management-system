@@ -1,7 +1,14 @@
 import React from "react";
 import C from "classnames";
 import T from "prop-types";
+import styled from "styled-components";
 
+const StyledInput = styled.input`
+  &.mb-input {
+    font-size: 20px;
+    flex: 1;
+  }
+`;
 const typeMapper = {
   primary: "input-primary",
   secondary: "input-secondary",
@@ -24,7 +31,7 @@ const Input = ({
   value
 }) => {
   return (
-    <input
+    <StyledInput
       className={C(
         "mb-input",
         type ? typeMapper[type] : "input-primary",

@@ -1,9 +1,22 @@
 import React from "react";
 import C from "classnames";
 import T from "prop-types";
+import styled from "styled-components";
 
+const StyledTableHead = styled.th`
+  &.mb-tablehead {
+    flex: 1;
+    justify-content: flex-start;
+    text-align: left;
+    padding: ${props => props.theme.layout.padding};
+    background: ${props => props.theme.colors.dark};
+    color: ${props => props.theme.colors.light};
+  }
+`;
 const TableHead = ({ children }) => {
-  return <th className={C("mb-tablehead")}>{children}</th>;
+  return (
+    <StyledTableHead className={C("mb-tablehead")}>{children}</StyledTableHead>
+  );
 };
 
 TableHead.propTypes = {

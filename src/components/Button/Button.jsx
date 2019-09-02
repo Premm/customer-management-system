@@ -2,6 +2,79 @@ import React from "react";
 import C from "classnames";
 import T from "prop-types";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
+
+const StyledButton = styled.button`
+  &.mb-btn {
+
+    border: none;
+    outline: none;
+    padding:  ${props => props.theme.layout.padding}
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    &.btn-primary {
+      background: ${props => props.theme.colors.primary}
+      color:${props => props.theme.colors.secondary}
+      &:hover {
+        background: ${props => props.theme.colors.primaryDark}
+      }
+    }
+    &.btn-secondary {
+      background: ${props => props.theme.colors.secondary}
+      color:${props => props.theme.colors.primary}
+      &:hover {
+        background: ${props => props.theme.colors.secondaryDark}
+      }
+    }
+    &.btn-lg {
+      font-size: 1.2rem;
+    }
+    &.btn-sm {
+      font-size: 0.8rem;
+    }
+  }
+`;
+
+const StyledLink = styled(Link)`
+  &.mb-btn {
+    border: none;
+    outline: none;
+    text-decoration: none;
+    padding:  ${props => props.theme.layout.padding}
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    &.btn-primary {
+      background: ${props => props.theme.colors.primary}
+      color:${props => props.theme.colors.secondary}
+      &:hover {
+        background: ${props => props.theme.colors.primaryDark}
+      }
+    }
+    &.btn-secondary {
+      background: ${props => props.theme.colors.secondary}
+      color:${props => props.theme.colors.primary}
+      &:hover {
+        background: ${props => props.theme.colors.secondaryDark}
+      }
+    }
+    &.btn-lg {
+      font-size: 1.2rem;
+    }
+    &.btn-sm {
+      font-size: 0.8rem;
+    }
+  }
+`;
 
 const typeMapper = {
   primary: "btn-primary",
@@ -17,7 +90,7 @@ const sizeMapper = {
 
 const Button = ({ children, size, type, onClick, to }) => {
   return to ? (
-    <Link
+    <StyledLink
       className={C(
         "mb-btn",
         type ? typeMapper[type] : "btn-primary",
@@ -25,11 +98,10 @@ const Button = ({ children, size, type, onClick, to }) => {
       )}
       to={to}
     >
-      {" "}
-      {children}{" "}
-    </Link>
+      {children}
+    </StyledLink>
   ) : (
-    <button
+    <StyledButton
       className={C(
         "mb-btn",
         type ? typeMapper[type] : "btn-primary",
@@ -38,7 +110,7 @@ const Button = ({ children, size, type, onClick, to }) => {
       onClick={onClick}
     >
       {children}
-    </button>
+    </StyledButton>
   );
 };
 

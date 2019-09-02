@@ -8,6 +8,22 @@ import Page from "../templates/Page";
 import Button from "../components/Button";
 import Input from "../components/Input";
 import Form from "../components/Form";
+import styled from "styled-components";
+
+const StyledAddForm = styled.div`
+  form {
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    .input-group {
+      box-sizing: border-box;
+      display: flex;
+      flex: 1;
+      padding: 10px 0;
+      width: 100%;
+    }
+  }
+`;
 
 const AddPage = ({ customers, setCustomer, history, match }) => {
   const [data, setData] = useState({});
@@ -39,32 +55,40 @@ const AddPage = ({ customers, setCustomer, history, match }) => {
   return (
     <Page>
       <h1>Customer Management System</h1>
-      <Form onSubmit={onSubmit}>
-        <Input
-          inputType="text"
-          name="firstName"
-          placeholder="First Name"
-          value={data.firstName}
-          onChange={onChange}
-        />
-        <Input
-          inputType="text"
-          name="lastName"
-          placeholder="Last Name"
-          value={data.lastName}
-          onChange={onChange}
-        />
-        <Input
-          inputType="date"
-          name="dob"
-          placeholder="DoB"
-          value={data.dob}
-          onChange={onChange}
-        />
-        <Button type="primary" size="large">
-          Add Customer
-        </Button>
-      </Form>
+      <StyledAddForm>
+        <Form onSubmit={onSubmit}>
+          <div className="input-group">
+            <Input
+              inputType="text"
+              name="firstName"
+              placeholder="First Name"
+              value={data.firstName}
+              onChange={onChange}
+            />
+          </div>
+          <div className="input-group">
+            <Input
+              inputType="text"
+              name="lastName"
+              placeholder="Last Name"
+              value={data.lastName}
+              onChange={onChange}
+            />
+          </div>
+          <div className="input-group">
+            <Input
+              inputType="date"
+              name="dob"
+              placeholder="DoB"
+              value={data.dob}
+              onChange={onChange}
+            />
+          </div>
+          <Button type="primary" size="large">
+            Add Customer
+          </Button>
+        </Form>
+      </StyledAddForm>
     </Page>
   );
 };

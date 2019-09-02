@@ -1,9 +1,18 @@
 import React from "react";
 import C from "classnames";
 import T from "prop-types";
+import styled from "styled-components";
 
+const StyledTableData = styled.td`
+  &.mb-tabledata {
+    display: flex;
+    flex: 1;
+  }
+`;
 const TableData = ({ children }) => {
-  return <td className={C("mb-tabledata")}>{children}</td>;
+  return (
+    <StyledTableData className={C("mb-tabledata")}>{children}</StyledTableData>
+  );
 };
 
 TableData.propTypes = {

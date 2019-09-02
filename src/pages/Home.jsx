@@ -10,6 +10,15 @@ import Page from "../templates/Page";
 import Button from "../components/Button";
 import { Table, TableRow, TableHead, TableData } from "../components/Table";
 import Input from "../components/Input";
+import styled from "styled-components";
+
+const StyledTopBar = styled.div`
+  &.top-bar-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+`;
 
 const HomePage = ({
   customers,
@@ -41,17 +50,19 @@ const HomePage = ({
   return (
     <Page>
       <h1>Customer Management System</h1>
-      <Button type="primary" size="large" to="/add">
-        Add Customer
-      </Button>
-      <Input
-        inputType="search"
-        type="secondary"
-        name="search"
-        value={data.search}
-        placeholder="Search..."
-        onChange={onChange}
-      />
+      <StyledTopBar className="top-bar-container">
+        <Button type="primary" size="large" to="/add">
+          Add Customer
+        </Button>
+        <Input
+          inputType="search"
+          type="secondary"
+          name="search"
+          value={data.search}
+          placeholder="Search..."
+          onChange={onChange}
+        />
+      </StyledTopBar>
       <Table>
         <thead>
           <TableRow>
