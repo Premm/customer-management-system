@@ -16,7 +16,7 @@ Form.propTypes = {
 };
 
 Form.defaultProps = {
-  onSubmit: console.log("no onSubmit function is assigned."),
+  onSubmit: null,
   children: null
 };
 

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import T from "prop-types";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { setCustomer, removeCustomer } from "../actions/customer";
+import { setCustomer } from "../actions/customer";
 
 import Page from "../templates/Page";
 import Button from "../components/Button";
@@ -35,6 +35,7 @@ const AddPage = ({ customers, setCustomer, history, match }) => {
   };
 
   useEffect(() => {
+    //updates the form data if a customerID is passed in through the URL.
     customers[match.params.customerID] &&
       setData({
         firstName: customers[match.params.customerID].firstName,
@@ -45,13 +46,21 @@ const AddPage = ({ customers, setCustomer, history, match }) => {
 
   const onSubmit = e => {
     e.preventDefault();
-    if (match.params.customerID) {
-      setCustomer({ customerID: match.params.customerID, customer: data });
-    } else {
-      setCustomer({ customerID: Date.now(), customer: data });
+    //make sure first name and last name are set.
+    if (data.firstName && data.lastName) {
+      if (match.params.customerID) {
+        // if a customerID was passed into the URL it means we are editing, so update that customer.
+        setCustomer({ customerID: match.params.customerID, customer: data });
+      } else {
+        // Otherwise create a new one.
+        // For the sake of this challenge, I'm just using Date.now() as a uid for this project,
+        // in a real product I'd use a library like uuid (https://www.npmjs.com/package/uuid).
+        setCustomer({ customerID: Date.now(), customer: data });
+      }
+      history.push("/");
     }
-    history.push("/");
   };
+
   return (
     <Page>
       <h1>Customer Management System</h1>

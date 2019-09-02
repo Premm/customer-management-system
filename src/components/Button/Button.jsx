@@ -46,13 +46,10 @@ const StyledLink = styled(Link)`
     outline: none;
     text-decoration: none;
     padding:  ${props => props.theme.layout.padding}
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     cursor: pointer;
-
     &.btn-primary {
       background: ${props => props.theme.colors.primary}
       color:${props => props.theme.colors.secondary}
@@ -118,14 +115,16 @@ Button.propTypes = {
   children: T.string,
   size: T.string,
   type: T.string,
-  onClick: T.func
+  onClick: T.func,
+  to: T.string
 };
 
 Button.defaultProps = {
   children: null,
   size: null,
   type: "primary",
-  onClick: console.log("no onClick function is assigned.")
+  onClick: null,
+  to: null
 };
 
 export default Button;
