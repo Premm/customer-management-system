@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import C from "classnames";
 import T from "prop-types";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
@@ -77,7 +76,7 @@ const HomePage = ({
             ? filteredCustomers &&
               Object.keys(filteredCustomers).map(key => (
                 <>
-                  <TableRow>
+                  <TableRow key={key}>
                     <TableData>
                       <span>{filteredCustomers[key].firstName}</span>
                     </TableData>
@@ -109,7 +108,7 @@ const HomePage = ({
             : customers &&
               Object.keys(customers).map(key => (
                 <>
-                  <TableRow>
+                  <TableRow key={key}>
                     <TableData>
                       <span>{customers[key].firstName}</span>
                     </TableData>
