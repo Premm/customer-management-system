@@ -2,14 +2,14 @@ import React, { useState, useEffect } from "react";
 import T from "prop-types";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import styled from "styled-components";
+
 import { removeCustomer, setFilteredCustomers } from "../actions/customer";
 
 import Page from "../templates/Page";
-
 import Button from "../components/Button";
 import { Table, TableRow, TableHead, TableData } from "../components/Table";
 import Input from "../components/Input";
-import styled from "styled-components";
 
 const StyledTopBar = styled.div`
   &.top-bar-container {

@@ -26,7 +26,6 @@ const createWrapperWithTheme = component => {
 describe("Button", () => {
   it("renders", () => {
     const wrapper = createWrapperWithTheme(<Button />);
-    console.log(wrapper);
     expect(wrapper.find("button").length).toBe(1);
   });
   it("renders with small class", () => {
