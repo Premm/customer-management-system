@@ -4,15 +4,26 @@ const INITIAL_STATE = {
   customers: {}
 };
 
-const applySetCustomer = (state, action) => ({
-  ...state,
-  customers: { ...state.customers, [action.customerID]: action.customer }
-});
+const applySetCustomer = (state, action) => {
+  return {
+    ...state,
+    customers: { ...state.customers, [action.customerID]: action.customer }
+  };
+};
 
-const applyRemoveCustomer = (state, action) => ({
-  ...state,
-  customers: state.customers ? delete state.customers[action.customerID] : {}
-});
+const applyRemoveCustomer = (state, action) => {
+  const newCustomers = {};
+  //create a new array without the customer that matches the customerID passed in.
+  Object.keys(state.customers).forEach(key => {
+    if (key !== action.customerID) {
+      newCustomers[key] = state.customers[key];
+    }
+  });
+  return {
+    ...state,
+    customers: newCustomers
+  };
+};
 
 function customerReducer(state = INITIAL_STATE, action) {
   switch (action.type) {

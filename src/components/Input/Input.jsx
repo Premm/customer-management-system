@@ -14,7 +14,15 @@ const sizeMapper = {
   large: "input-lg"
 };
 
-const Input = ({ placeholder, size, type, onChange, inputType }) => {
+const Input = ({
+  placeholder,
+  size,
+  type,
+  onChange,
+  name,
+  inputType,
+  value
+}) => {
   return (
     <input
       className={C(
@@ -25,12 +33,16 @@ const Input = ({ placeholder, size, type, onChange, inputType }) => {
       type={inputType ? inputType : "text"}
       onChange={onChange}
       placeholder={placeholder}
+      name={name}
+      value={value}
     />
   );
 };
 
 Input.propTypes = {
   placeholder: T.string,
+  value: T.string,
+  name: T.string,
   size: T.string,
   type: T.string,
   inputType: T.string,
@@ -39,6 +51,8 @@ Input.propTypes = {
 
 Input.defaultProps = {
   placeholder: null,
+  name: "",
+  value: null,
   size: null,
   type: "primary",
   inputType: "text",
