@@ -10,7 +10,7 @@ TableHead.propTypes = {
   children: T.node
 };
 
-TableHead.propTypes = {
+TableHead.defaultProps = {
   children: null
 };
 

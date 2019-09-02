@@ -52,7 +52,7 @@ Input.propTypes = {
 Input.defaultProps = {
   placeholder: null,
   name: "",
-  value: null,
+  value: "",
   size: null,
   type: "primary",
   inputType: "text",
