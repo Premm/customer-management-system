@@ -14,7 +14,7 @@ const applySetCustomer = (state, action) => {
 
 const applyRemoveCustomer = (state, action) => {
   const newCustomers = {};
-  //create a new array without the customer matching the customerID passed in.
+  //create a new array, skipping the customer matching the customerID passed in.
   Object.keys(state.customers).forEach(key => {
     if (key !== action.customerID) {
       newCustomers[key] = state.customers[key];
