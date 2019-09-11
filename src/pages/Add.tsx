@@ -75,11 +75,9 @@ const AddPage = ({ customers, setCustomer, history, match }: AddPageProps) => {
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     //make sure first name and last name are set.
-    console.log("here");
     if (setCustomer && data.firstName && data.lastName) {
       if (data.id) {
         setCustomer(data);
-        console.log("here", data);
       }
       history.push("/");
     }
