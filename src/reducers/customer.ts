@@ -73,8 +73,7 @@ const applySetFilteredCustomers = (
   action.customers.forEach(tempCustomer => {
     if (tempCustomer.firstName.includes(action.query)) {
       filteredCustomers.push(tempCustomer);
-    }
-    if (tempCustomer.lastName.includes(action.query)) {
+    } else if (tempCustomer.lastName.includes(action.query)) {
       filteredCustomers.push(tempCustomer);
     }
   });
