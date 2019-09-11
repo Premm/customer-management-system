@@ -31,7 +31,9 @@ const StyledAddForm = styled.div`
 interface AddPageProps
   extends RouteComponentProps<any>,
     StateProps,
-    DispatchProps {}
+    DispatchProps {
+  setCustomer: typeof setCustomer;
+}
 
 const AddPage = ({ customers, setCustomer, history, match }: AddPageProps) => {
   const [data, setData] = useState<Customer>({
@@ -52,29 +54,46 @@ const AddPage = ({ customers, setCustomer, history, match }: AddPageProps) => {
       match.params.customerID &&
       customers.forEach(tempCustomer => {
         if (tempCustomer.id == match.params.customerID) {
+          setData(d => ({
+            ...d,
+            id: tempCustomer.id
+          }));
+        }
+      });
+  }, []); //do this on component mount
+
+  useEffect(() => {
+    //updates the form data if a customerID is passed in through the URL.
+    let flag = true;
+    customers &&
+      match.params.customerID &&
+      customers.forEach(tempCustomer => {
+        if (tempCustomer.id == match.params.customerID) {
           setData({
             id: tempCustomer.id,
             firstName: tempCustomer.firstName,
             lastName: tempCustomer.lastName,
             dob: tempCustomer.dob
           });
+          flag = false;
         }
       });
+    if (flag) {
+      setData(d => ({
+        ...d,
+        id: Date.now().toString()
+      }));
+    }
   }, [match.params.customerID, customers]);
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     //make sure first name and last name are set.
+    console.log("here");
     if (setCustomer && data.firstName && data.lastName) {
       if (data.id) {
-        // if a customerID was passed into the URL it means we are editing, so update that customer.
         setCustomer(data);
-      } else {
-        // Otherwise create a new one.
-        // For the sake of this challenge, I'm just using Date.now() as a uid for this project,
-        // in a real product I'd use a library like uuid (https://www.npmjs.com/package/uuid).
-        setData(d => ({ ...d, id: Date.now() + "" }));
-        setCustomer(data);
+        console.log("here", data);
       }
       history.push("/");
     }
@@ -133,13 +152,11 @@ const mapStateToProps = (state: any): StateProps => ({
   customers: state.customerState.customers
 });
 
-const mapDispatchToProps = (): DispatchProps => {
-  return {
-    setCustomer
-  };
-};
+const mapDispatchToProps = (): DispatchProps => ({
+  setCustomer
+});
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  { setCustomer }
 )(AddPage);
