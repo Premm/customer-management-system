@@ -2,7 +2,11 @@ import React from "react";
 import C from "classnames";
 import T from "prop-types";
 
-const List = ({ children }) => {
+interface ListProps {
+  children: React.ReactNode;
+}
+
+const List = ({ children }: ListProps) => {
   return <ul className={C("mb-list")}>{children}</ul>;
 };
 

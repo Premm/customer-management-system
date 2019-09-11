@@ -9,7 +9,12 @@ const StyledTableData = styled.td`
     flex: 1;
   }
 `;
-const TableData = ({ children }) => {
+
+interface TableDataProps {
+  children?: React.ReactNode;
+}
+
+const TableData = ({ children }: TableDataProps) => {
   return (
     <StyledTableData className={C("mb-tabledata")}>{children}</StyledTableData>
   );

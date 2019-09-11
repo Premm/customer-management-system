@@ -5,7 +5,7 @@ import ListItem from "./ListItem";
 
 describe("ListItem", () => {
   it("renders", () => {
-    const wrapper = shallow(<ListItem />);
+    const wrapper = shallow(<ListItem>Testing</ListItem>);
     expect(wrapper.find("li").length).toBe(1);
   });
   it("renders it's children", () => {
@@ -16,7 +16,7 @@ describe("ListItem", () => {
 
 describe("List", () => {
   it("renders", () => {
-    const wrapper = shallow(<List />);
+    const wrapper = shallow(<ListItem>Testing</ListItem>);
     expect(wrapper.find("ul").length).toBe(1);
   });
   it("renders it's children", () => {

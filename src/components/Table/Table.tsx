@@ -20,7 +20,11 @@ const StyledTable = styled.table`
   }
 `;
 
-const Table = ({ children }) => {
+interface TableProps {
+  children: React.ReactNode;
+}
+
+const Table = ({ children }: TableProps) => {
   return <StyledTable className={C("mb-table")}>{children}</StyledTable>;
 };
 

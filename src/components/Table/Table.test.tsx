@@ -24,13 +24,17 @@ const theme = {
   fontFamily: "Roboto, sans-serif"
 };
 
-const createWrapperWithTheme = component => {
+const createWrapperWithTheme = (component: any) => {
   return mount(<ThemeProvider theme={theme}>{component}</ThemeProvider>);
 };
 
 describe("Table", () => {
   it("renders", () => {
-    const wrapper = createWrapperWithTheme(<Table />);
+    const wrapper = createWrapperWithTheme(
+      <Table>
+        <tbody></tbody>
+      </Table>
+    );
     expect(wrapper.find("table").length).toBe(1);
   });
 });
@@ -39,7 +43,9 @@ describe("TableRow", () => {
     const wrapper = createWrapperWithTheme(
       <Table>
         <tbody>
-          <TableRow />
+          <TableRow>
+            <td></td>
+          </TableRow>
         </tbody>
       </Table>
     );

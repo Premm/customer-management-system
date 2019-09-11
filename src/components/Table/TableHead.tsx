@@ -13,7 +13,12 @@ const StyledTableHead = styled.th`
     color: ${props => props.theme.colors.light};
   }
 `;
-const TableHead = ({ children }) => {
+
+interface TableHeadProps {
+  children?: React.ReactNode;
+}
+
+const TableHead = ({ children }: TableHeadProps) => {
   return (
     <StyledTableHead className={C("mb-tablehead")}>{children}</StyledTableHead>
   );

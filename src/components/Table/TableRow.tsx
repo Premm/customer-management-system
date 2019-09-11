@@ -14,7 +14,12 @@ const StyledTableRow = styled.tr`
     }
   }
 `;
-const TableRow = ({ children }) => {
+
+interface TableRowProps {
+  children: React.ReactNode;
+}
+
+const TableRow = ({ children }: TableRowProps) => {
   return (
     <StyledTableRow className={C("mb-tablerow")}>{children}</StyledTableRow>
   );
