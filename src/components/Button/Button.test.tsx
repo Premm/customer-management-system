@@ -20,7 +20,7 @@ const theme = {
   fontFamily: "Roboto, sans-serif"
 };
 
-const createWrapperWithTheme = component => {
+const createWrapperWithTheme = (component: any) => {
   return mount(<ThemeProvider theme={theme}>{component}</ThemeProvider>);
 };
 describe("Button", () => {

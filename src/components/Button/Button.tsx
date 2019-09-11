@@ -73,19 +73,37 @@ const StyledLink = styled(Link)`
   }
 `;
 
-const typeMapper = {
+const typeMapper: {
+  [index: string]: string;
+  primary: string;
+  secondary: string;
+  dark: string;
+  light: string;
+} = {
   primary: "btn-primary",
   secondary: "btn-secondary",
   dark: "btn-dark",
   light: "btn-light"
 };
 
-const sizeMapper = {
+const sizeMapper: {
+  [index: string]: string;
+  small: string;
+  large: string;
+} = {
   small: "btn-sm",
   large: "btn-lg"
 };
 
-const Button = ({ children, size, type, onClick, to }) => {
+interface ButtonProps {
+  children?: React.ReactNode;
+  size?: string;
+  type?: string;
+  onClick?: () => void;
+  to?: string;
+}
+
+const Button = ({ children, size, type, onClick, to }: ButtonProps) => {
   return to ? (
     <StyledLink
       className={C(
