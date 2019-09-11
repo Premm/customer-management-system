@@ -9,17 +9,37 @@ const StyledInput = styled.input`
     flex: 1;
   }
 `;
-const typeMapper = {
+const typeMapper: {
+  [index: string]: string;
+  primary: string;
+  secondary: string;
+  dark: string;
+  light: string;
+} = {
   primary: "input-primary",
   secondary: "input-secondary",
   dark: "input-dark",
   light: "input-light"
 };
 
-const sizeMapper = {
+const sizeMapper: {
+  [index: string]: string;
+  small: string;
+  large: string;
+} = {
   small: "input-sm",
   large: "input-lg"
 };
+
+interface InputProps {
+  placeholder?: string;
+  size?: string;
+  type?: string;
+  onChange?: () => void;
+  name: string;
+  inputType: string;
+  value: string;
+}
 
 const Input = ({
   placeholder,
@@ -29,7 +49,7 @@ const Input = ({
   name,
   inputType,
   value
-}) => {
+}: InputProps) => {
   return (
     <StyledInput
       className={C(
