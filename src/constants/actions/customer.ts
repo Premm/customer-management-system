@@ -6,7 +6,7 @@ export const customerSet = (customer: Customer) => ({
   customer
 });
 
-export const customerRemove = (customerID: number) => ({
+export const customerRemove = (customerID: string) => ({
   type: CUSTOMER_REMOVE,
   customerID
 });

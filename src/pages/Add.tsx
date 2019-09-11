@@ -50,20 +50,6 @@ const AddPage = ({ customers, setCustomer, history, match }: AddPageProps) => {
 
   useEffect(() => {
     //updates the form data if a customerID is passed in through the URL.
-    customers &&
-      match.params.customerID &&
-      customers.forEach(tempCustomer => {
-        if (tempCustomer.id == match.params.customerID) {
-          setData(d => ({
-            ...d,
-            id: tempCustomer.id
-          }));
-        }
-      });
-  }, []); //do this on component mount
-
-  useEffect(() => {
-    //updates the form data if a customerID is passed in through the URL.
     let flag = true;
     customers &&
       match.params.customerID &&

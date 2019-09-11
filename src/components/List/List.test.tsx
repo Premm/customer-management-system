@@ -16,7 +16,7 @@ describe("ListItem", () => {
 
 describe("List", () => {
   it("renders", () => {
-    const wrapper = shallow(<ListItem>Testing</ListItem>);
+    const wrapper = shallow(<List>Testing</List>);
     expect(wrapper.find("ul").length).toBe(1);
   });
   it("renders it's children", () => {

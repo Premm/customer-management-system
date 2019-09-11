@@ -24,7 +24,10 @@ const StyledTopBar = styled.div`
 interface HomePageProps
   extends RouteComponentProps<any>,
     StateProps,
-    DispatchProps {}
+    DispatchProps {
+  removeCustomer: typeof removeCustomer;
+  setFilteredCustomers: typeof setFilteredCustomers;
+}
 
 const HomePage = ({
   customers,
@@ -40,7 +43,7 @@ const HomePage = ({
   };
 
   const onRemove = (customerID: string) => {
-    removeCustomer(parseInt(customerID));
+    removeCustomer(customerID);
   };
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -82,10 +85,9 @@ const HomePage = ({
           {data.search
             ? filteredCustomers &&
               filteredCustomers.map(tempCustomer => {
-                console.log(tempCustomer);
                 return (
                   <>
-                    <TableRow key={"sometghing"}>
+                    <TableRow key={tempCustomer.id}>
                       <TableData>
                         <span>{tempCustomer.firstName}</span>
                       </TableData>
@@ -99,14 +101,14 @@ const HomePage = ({
                         <Button
                           type="primary"
                           size="small"
-                          //onClick={() => onEdit(key)}
+                          onClick={() => onEdit(tempCustomer.id)}
                         >
                           Edit
                         </Button>
                         <Button
                           type="secondary"
                           size="small"
-                          //onClick={() => onRemove(key)}
+                          onClick={() => onRemove(tempCustomer.id)}
                         >
                           Delete
                         </Button>
@@ -118,7 +120,7 @@ const HomePage = ({
             : customers &&
               customers.map(tempCustomer => (
                 <>
-                  <TableRow key={"something"}>
+                  <TableRow key={tempCustomer.id}>
                     <TableData>
                       <span>{tempCustomer.firstName}</span>
                     </TableData>
@@ -132,14 +134,14 @@ const HomePage = ({
                       <Button
                         type="primary"
                         size="small"
-                        // onClick={() => onEdit(key)}
+                        onClick={() => onEdit(tempCustomer.id)}
                       >
                         Edit
                       </Button>
                       <Button
                         type="secondary"
                         size="small"
-                        // onClick={() => onRemove(key)}
+                        onClick={() => onRemove(tempCustomer.id)}
                       >
                         Delete
                       </Button>
@@ -168,14 +170,12 @@ const mapStateToProps = (state: any): StateProps => ({
   filteredCustomers: state.customerState.filteredCustomers
 });
 
-const mapDispatchToProps = (): DispatchProps => {
-  return {
-    removeCustomer,
-    setFilteredCustomers
-  };
-};
+const mapDispatchToProps = (): DispatchProps => ({
+  removeCustomer,
+  setFilteredCustomers
+});
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  { removeCustomer, setFilteredCustomers }
 )(withRouter(HomePage));

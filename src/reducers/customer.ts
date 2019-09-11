@@ -32,9 +32,22 @@ interface FilterCustomersAction {
 }
 
 const applySetCustomer = (state: State, action: SetCustomerAction) => {
+  const newCustomers: Customer[] = state.customers;
+  let flag = true;
+  //check if a customer with that ID already exists. (im sure there's a better es6 way to do this now.)
+  newCustomers.forEach((tempCustomer, i) => {
+    if (tempCustomer.id === action.customer.id) {
+      newCustomers[i] = action.customer;
+      flag = false;
+    }
+  });
+  //if the customer was never added, push it into the last spot.
+  if (flag) {
+    newCustomers.push(action.customer);
+  }
   return {
     ...state,
-    customers: [...state.customers, action.customer]
+    customers: newCustomers
   };
 };
 
