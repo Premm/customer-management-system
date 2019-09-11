@@ -3,7 +3,7 @@ import C from "classnames";
 import T from "prop-types";
 
 interface FormProps {
-  onSubmit?: () => void;
+  onSubmit?: (e: React.FormEvent<HTMLFormElement>) => void;
   children: React.ReactNode;
 }
 

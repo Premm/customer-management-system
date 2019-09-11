@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route } from "react-router";
 import HomePage from "./pages/Home";
 import AddPage from "./pages/Add";
 import { ThemeProvider, createGlobalStyle } from "styled-components";

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import T from "prop-types";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import { withRouter, RouteComponentProps } from "react-router-dom";
 import styled from "styled-components";
 
 import { removeCustomer, setFilteredCustomers } from "../actions/customer";
@@ -11,6 +11,8 @@ import Button from "../components/Button";
 import { Table, TableRow, TableHead, TableData } from "../components/Table";
 import Input from "../components/Input";
 
+import { Customer } from "../constants/interfaces/Customer";
+
 const StyledTopBar = styled.div`
   &.top-bar-container {
     display: flex;
@@ -19,24 +21,29 @@ const StyledTopBar = styled.div`
   }
 `;
 
+interface HomePageProps
+  extends RouteComponentProps<any>,
+    StateProps,
+    DispatchProps {}
+
 const HomePage = ({
   customers,
   filteredCustomers,
   removeCustomer,
   setFilteredCustomers,
   history
-}) => {
-  const [data, setData] = useState({});
+}: HomePageProps) => {
+  const [data, setData] = useState<{ search: string }>({ search: "" });
 
-  const onEdit = customerID => {
+  const onEdit = (customerID: string) => {
     history.push(`/edit/${customerID}`);
   };
 
-  const onRemove = customerID => {
-    removeCustomer(customerID);
+  const onRemove = (customerID: string) => {
+    removeCustomer(parseInt(customerID));
   };
 
-  const onChange = e => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name;
     const val = e.target.value;
     setData(d => ({ ...d, [name]: val }));
@@ -74,62 +81,65 @@ const HomePage = ({
         <tbody>
           {data.search
             ? filteredCustomers &&
-              Object.keys(filteredCustomers).map(key => (
-                <>
-                  <TableRow key={key}>
-                    <TableData>
-                      <span>{filteredCustomers[key].firstName}</span>
-                    </TableData>
-                    <TableData>
-                      <span>{filteredCustomers[key].lastName}</span>
-                    </TableData>
-                    <TableData>
-                      <span>{filteredCustomers[key].dob}</span>
-                    </TableData>
-                    <TableData>
-                      <Button
-                        type="primary"
-                        size="small"
-                        onClick={() => onEdit(key)}
-                      >
-                        Edit
-                      </Button>
-                      <Button
-                        type="secondary"
-                        size="small"
-                        onClick={() => onRemove(key)}
-                      >
-                        Delete
-                      </Button>
-                    </TableData>
-                  </TableRow>
-                </>
-              ))
+              filteredCustomers.map(tempCustomer => {
+                console.log(tempCustomer);
+                return (
+                  <>
+                    <TableRow key={"sometghing"}>
+                      <TableData>
+                        <span>{tempCustomer.firstName}</span>
+                      </TableData>
+                      <TableData>
+                        <span>{tempCustomer.lastName}</span>
+                      </TableData>
+                      <TableData>
+                        <span>{tempCustomer.dob}</span>
+                      </TableData>
+                      <TableData>
+                        <Button
+                          type="primary"
+                          size="small"
+                          //onClick={() => onEdit(key)}
+                        >
+                          Edit
+                        </Button>
+                        <Button
+                          type="secondary"
+                          size="small"
+                          //onClick={() => onRemove(key)}
+                        >
+                          Delete
+                        </Button>
+                      </TableData>
+                    </TableRow>
+                  </>
+                );
+              })
             : customers &&
-              Object.keys(customers).map(key => (
+              customers.map(tempCustomer => (
                 <>
-                  <TableRow key={key}>
+                  <TableRow key={"something"}>
                     <TableData>
-                      <span>{customers[key].firstName}</span>
+                      <span>{tempCustomer.firstName}</span>
                     </TableData>
                     <TableData>
-                      <span>{customers[key].lastName}</span>
+                      <span>{tempCustomer.lastName}</span>
                     </TableData>
                     <TableData>
-                      <span>{customers[key].dob}</span>
+                      <span>{tempCustomer.dob}</span>
                     </TableData>
                     <TableData>
                       <Button
                         type="primary"
                         size="small"
-                        onClick={() => onEdit(key)}
+                        // onClick={() => onEdit(key)}
                       >
                         Edit
                       </Button>
                       <Button
                         type="secondary"
                         size="small"
-                        onClick={() => onRemove(key)}
+                        // onClick={() => onRemove(key)}
                       >
                         Delete
                       </Button>
@@ -143,20 +153,29 @@ const HomePage = ({
   );
 };
 
-HomePage.propTypes = {
-  children: T.node
-};
+interface StateProps {
+  customers: Customer[];
+  filteredCustomers: Customer[];
+}
 
-HomePage.defaultProps = {
-  children: null
-};
+interface DispatchProps {
+  removeCustomer: typeof removeCustomer;
+  setFilteredCustomers: typeof setFilteredCustomers;
+}
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: any): StateProps => ({
   customers: state.customerState.customers,
   filteredCustomers: state.customerState.filteredCustomers
 });
 
+const mapDispatchToProps = (): DispatchProps => {
+  return {
+    removeCustomer,
+    setFilteredCustomers
+  };
+};
+
 export default connect(
   mapStateToProps,
-  { removeCustomer, setFilteredCustomers }
+  mapDispatchToProps
 )(withRouter(HomePage));

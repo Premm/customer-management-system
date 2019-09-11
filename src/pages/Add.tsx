@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import T from "prop-types";
+import T, { shape } from "prop-types";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import { withRouter, RouteComponentProps } from "react-router-dom";
 import styled from "styled-components";
 
 import { setCustomer } from "../actions/customer";
@@ -10,6 +10,8 @@ import Page from "../templates/Page";
 import Button from "../components/Button";
 import Input from "../components/Input";
 import Form from "../components/Form";
+
+import { Customer } from "../constants/interfaces/Customer";
 
 const StyledAddForm = styled.div`
   form {
@@ -26,37 +28,53 @@ const StyledAddForm = styled.div`
   }
 `;
 
-const AddPage = ({ customers, setCustomer, history, match }) => {
-  const [data, setData] = useState({});
+interface AddPageProps
+  extends RouteComponentProps<any>,
+    StateProps,
+    DispatchProps {}
 
-  const onChange = e => {
-    const name = e.target.name;
-    const val = e.target.value;
+const AddPage = ({ customers, setCustomer, history, match }: AddPageProps) => {
+  const [data, setData] = useState<Customer>({
+    id: "",
+    firstName: "",
+    lastName: "",
+    dob: ""
+  });
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const name: string = e.target.name;
+    const val: string = e.target.value;
     setData(d => ({ ...d, [name]: val }));
   };
 
   useEffect(() => {
     //updates the form data if a customerID is passed in through the URL.
-    customers[match.params.customerID] &&
-      setData({
-        firstName: customers[match.params.customerID].firstName,
-        lastName: customers[match.params.customerID].lastName,
-        dob: customers[match.params.customerID].dob
+    customers &&
+      match.params.customerID &&
+      customers.forEach(tempCustomer => {
+        if (tempCustomer.id == match.params.customerID) {
+          setData({
+            id: tempCustomer.id,
+            firstName: tempCustomer.firstName,
+            lastName: tempCustomer.lastName,
+            dob: tempCustomer.dob
+          });
+        }
       });
   }, [match.params.customerID, customers]);
 
-  const onSubmit = e => {
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     //make sure first name and last name are set.
-    if (data.firstName && data.lastName) {
-      if (match.params.customerID) {
+    if (setCustomer && data.firstName && data.lastName) {
+      if (data.id) {
         // if a customerID was passed into the URL it means we are editing, so update that customer.
-        setCustomer({ customerID: match.params.customerID, customer: data });
+        setCustomer(data);
       } else {
         // Otherwise create a new one.
         // For the sake of this challenge, I'm just using Date.now() as a uid for this project,
         // in a real product I'd use a library like uuid (https://www.npmjs.com/package/uuid).
-        setCustomer({ customerID: Date.now(), customer: data });
+        setData(d => ({ ...d, id: Date.now() + "" }));
+        setCustomer(data);
       }
       history.push("/");
     }
@@ -103,19 +121,25 @@ const AddPage = ({ customers, setCustomer, history, match }) => {
   );
 };
 
-AddPage.propTypes = {
-  children: T.node
-};
+interface StateProps {
+  customers: Customer[];
+}
 
-AddPage.defaultProps = {
-  children: null
-};
+interface DispatchProps {
+  setCustomer: typeof setCustomer;
+}
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: any): StateProps => ({
   customers: state.customerState.customers
 });
 
+const mapDispatchToProps = (): DispatchProps => {
+  return {
+    setCustomer
+  };
+};
+
 export default connect(
   mapStateToProps,
-  { setCustomer }
-)(withRouter(AddPage));
+  mapDispatchToProps
+)(AddPage);

@@ -1,23 +1,49 @@
 import * as Types from "../constants/types";
-
+import { Customer } from "../constants/interfaces/Customer";
 const INITIAL_STATE = {
-  customers: {},
-  filteredCustomers: {}
+  customers: [],
+  filteredCustomers: []
 };
 
-const applySetCustomer = (state, action) => {
+interface State {
+  customers: Customer[];
+  filteredCustomers: Customer[];
+}
+
+interface CustomerAction
+  extends SetCustomerAction,
+    RemoveCustomerAction,
+    FilterCustomersAction {}
+
+interface SetCustomerAction {
+  type: string;
+  customerID: string;
+  customer: Customer;
+}
+
+interface RemoveCustomerAction {
+  type: string;
+  customerID: string;
+}
+interface FilterCustomersAction {
+  type: string;
+  customers: Customer[];
+  query: string;
+}
+
+const applySetCustomer = (state: State, action: SetCustomerAction) => {
   return {
     ...state,
-    customers: { ...state.customers, [action.customerID]: action.customer }
+    customers: [...state.customers, action.customer]
   };
 };
 
-const applyRemoveCustomer = (state, action) => {
-  const newCustomers = {};
+const applyRemoveCustomer = (state: State, action: RemoveCustomerAction) => {
+  const newCustomers: Customer[] = [];
   //create a new array, skipping the customer matching the customerID passed in.
-  Object.keys(state.customers).forEach(key => {
-    if (key !== action.customerID) {
-      newCustomers[key] = state.customers[key];
+  state.customers.forEach(tempCustomer => {
+    if (tempCustomer.id !== action.customerID) {
+      newCustomers.push(tempCustomer);
     }
   });
   return {
@@ -26,14 +52,17 @@ const applyRemoveCustomer = (state, action) => {
   };
 };
 
-const applySetFilteredCustomers = (state, action) => {
-  const filteredCustomers = {};
-  Object.keys(action.customers).forEach(key => {
-    if (action.customers[key].firstName.includes(action.query)) {
-      filteredCustomers[key] = action.customers[key];
+const applySetFilteredCustomers = (
+  state: State,
+  action: FilterCustomersAction
+) => {
+  const filteredCustomers: Customer[] = [];
+  action.customers.forEach(tempCustomer => {
+    if (tempCustomer.firstName.includes(action.query)) {
+      filteredCustomers.push(tempCustomer);
     }
-    if (action.customers[key].lastName.includes(action.query)) {
-      filteredCustomers[key] = action.customers[key];
+    if (tempCustomer.lastName.includes(action.query)) {
+      filteredCustomers.push(tempCustomer);
     }
   });
 
@@ -43,7 +72,7 @@ const applySetFilteredCustomers = (state, action) => {
   };
 };
 
-function customerReducer(state = INITIAL_STATE, action) {
+function customerReducer(state: State = INITIAL_STATE, action: CustomerAction) {
   switch (action.type) {
     case Types.CUSTOMER_SET: {
       return applySetCustomer(state, action);

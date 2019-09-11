@@ -2,7 +2,10 @@ import React from "react";
 import C from "classnames";
 import T from "prop-types";
 
-const Page = ({ children }) => {
+interface PageProps {
+  children: React.ReactNode;
+}
+const Page = ({ children }: PageProps) => {
   return <div className={C("mb-page")}>{children}</div>;
 };
 
