@@ -2,7 +2,12 @@ import React from "react";
 import C from "classnames";
 import T from "prop-types";
 
-const Form = ({ onSubmit, children }) => {
+interface FormProps {
+  onSubmit?: () => void;
+  children: React.ReactNode;
+}
+
+const Form = ({ onSubmit, children }: FormProps) => {
   return (
     <form className={C("mb-form")} onSubmit={onSubmit}>
       {children}
