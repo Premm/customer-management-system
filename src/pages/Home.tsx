@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import T from "prop-types";
 import { connect } from "react-redux";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 import styled from "styled-components";
@@ -168,11 +167,6 @@ interface DispatchProps {
 const mapStateToProps = (state: any): StateProps => ({
   customers: state.customerState.customers,
   filteredCustomers: state.customerState.filteredCustomers
-});
-
-const mapDispatchToProps = (): DispatchProps => ({
-  removeCustomer,
-  setFilteredCustomers
 });
 
 export default connect(

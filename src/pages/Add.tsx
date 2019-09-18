@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import T, { shape } from "prop-types";
 import { connect } from "react-redux";
-import { withRouter, RouteComponentProps } from "react-router-dom";
+import { RouteComponentProps } from "react-router-dom";
 import styled from "styled-components";
 
 import { setCustomer } from "../actions/customer";
@@ -54,7 +53,7 @@ const AddPage = ({ customers, setCustomer, history, match }: AddPageProps) => {
     customers &&
       match.params.customerID &&
       customers.forEach(tempCustomer => {
-        if (tempCustomer.id == match.params.customerID) {
+        if (tempCustomer.id === match.params.customerID) {
           setData({
             id: tempCustomer.id,
             firstName: tempCustomer.firstName,
@@ -134,10 +133,6 @@ interface DispatchProps {
 
 const mapStateToProps = (state: any): StateProps => ({
   customers: state.customerState.customers
-});
-
-const mapDispatchToProps = (): DispatchProps => ({
-  setCustomer
 });
 
 export default connect(

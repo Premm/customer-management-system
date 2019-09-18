@@ -3,7 +3,6 @@ import { Switch, Route } from "react-router";
 import HomePage from "./pages/Home";
 import AddPage from "./pages/Add";
 import { ThemeProvider, createGlobalStyle } from "styled-components";
-import { JSXElement } from "@babel/types";
 
 const GlobalStyles = createGlobalStyle`
   body {
