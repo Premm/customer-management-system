@@ -23,10 +23,7 @@ const StyledTopBar = styled.div`
 interface HomePageProps
   extends RouteComponentProps<any>,
     StateProps,
-    DispatchProps {
-  removeCustomer: typeof removeCustomer;
-  setFilteredCustomers: typeof setFilteredCustomers;
-}
+    DispatchProps {}
 
 const HomePage = ({
   customers,

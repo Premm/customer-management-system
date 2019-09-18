@@ -30,9 +30,7 @@ const StyledAddForm = styled.div`
 interface AddPageProps
   extends RouteComponentProps<any>,
     StateProps,
-    DispatchProps {
-  setCustomer: typeof setCustomer;
-}
+    DispatchProps {}
 
 const AddPage = ({ customers, setCustomer, history, match }: AddPageProps) => {
   const [data, setData] = useState<Customer>({
