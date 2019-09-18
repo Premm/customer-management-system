@@ -1,6 +1,6 @@
 ## Customer Management System - Technical Challenge
 
-To run the project clone it to your local machine and use `npm start`.
+To run the project clone it to your local machine, use `npm i` and then `npm start`.
 
 ## This project features:
 
